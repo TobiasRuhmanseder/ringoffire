@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-start-screen',
-  templateUrl: './start-screen.component.html',
-  styleUrls: ['./start-screen.component.scss']
+  selector: 'app-game',
+  templateUrl: './game.component.html',
+  styleUrls: ['./game.component.scss']
 })
-export class StartScreenComponent implements OnInit {
+export class GameComponent implements OnInit {
   isHover = false;
   isHoverOut = false;
-
+  pickCardAnimation = false;
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -31,7 +31,7 @@ export class StartScreenComponent implements OnInit {
       this.isHover = true;
     }
   }
- 
+
   buttonTextOut() {
     if (this.isHover && !this.isHoverOut) {
       this.isHoverOut = true;
@@ -46,8 +46,17 @@ export class StartScreenComponent implements OnInit {
 
   }
 
-  newGame() {
-    this.router.navigateByUrl('/game');
+  endGame() {
+    document.getElementById('buttonId')?.classList.remove('end-button');
+    document.getElementById('buttonId')?.classList.add('end-button-reverse');
+    setTimeout(() => { this.router.navigateByUrl('/'); }, 3000);
+
+  }
+
+  takeCard() {
+    this.pickCardAnimation = true;
   }
 
 }
+
+
