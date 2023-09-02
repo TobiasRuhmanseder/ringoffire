@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Game } from 'src/models/game';
 
 @Component({
   selector: 'app-game',
@@ -10,17 +11,24 @@ export class GameComponent implements OnInit {
   isHover = false;
   isHoverOut = false;
   pickCardAnimation = false;
+  game!: Game;
+
   constructor(private router: Router) { }
 
   ngOnInit() {
-
+    this.newGame();
     document.getElementById('buttonId')?.addEventListener('mouseover', () => {
       this.buttonTextIn();
     })
-
     document.getElementById('buttonId')?.addEventListener('mouseleave', () => {
       this.buttonTextOut();
     })
+  }
+
+  newGame() {
+    this.game = new Game();
+    console.log(this.game);
+
   }
 
   buttonTextIn() {

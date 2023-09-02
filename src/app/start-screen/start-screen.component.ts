@@ -13,7 +13,6 @@ export class StartScreenComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-
     document.getElementById('buttonId')?.addEventListener('mouseover', () => {
       this.buttonTextIn();
     })
@@ -31,7 +30,7 @@ export class StartScreenComponent implements OnInit {
       this.isHover = true;
     }
   }
- 
+
   buttonTextOut() {
     if (this.isHover && !this.isHoverOut) {
       this.isHoverOut = true;
