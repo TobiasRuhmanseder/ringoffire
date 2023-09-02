@@ -11,6 +11,7 @@ export class GameComponent implements OnInit {
   isHover = false;
   isHoverOut = false;
   pickCardAnimation = false;
+  currentCard: string = '';
   game!: Game;
 
   constructor(private router: Router) { }
@@ -62,9 +63,14 @@ export class GameComponent implements OnInit {
   }
 
   takeCard() {
-    this.pickCardAnimation = true;
+    if (!this.pickCardAnimation) {
+      this.currentCard = this.game.stack.pop()!;
+      this.pickCardAnimation = true;
+
+      setTimeout(() => {
+        this.pickCardAnimation = false
+        this.game.playedCard.push(this.currentCard);
+      }, 1000)
+    }
   }
-
 }
-
-
