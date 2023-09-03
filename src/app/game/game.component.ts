@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Game } from 'src/models/game';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
+import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-game',
@@ -14,7 +17,7 @@ export class GameComponent implements OnInit {
   currentCard: string = '';
   game!: Game;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.newGame();
@@ -73,4 +76,24 @@ export class GameComponent implements OnInit {
       }, 1000)
     }
   }
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    const dialogRef = this.dialog.open(DialogAddPlayerComponent, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
+    // this.dialog.open(DialogAddPlayerComponent, {
+    //   width: '250px',
+    //   enterAnimationDuration,
+    //   exitAnimationDuration,
+    // });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      console.log('The dialog was closed', result);
+    });
+  }
 }
+
+
+
+

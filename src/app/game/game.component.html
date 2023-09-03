@@ -5,7 +5,7 @@
         <div class="card-stack">
             <!--Card stack-->
             <img *ngFor="let c of [0,1,2,3]; let i = index;" [ngStyle]="{'left.px': i*5}"
-                src="./../../assets/img/cards/back.svg">    
+                src="./../../assets/img/cards/back.svg">
             <img (click)="takeCard()" class="top-card" style="left: 20px;" src="./../../assets/img/cards/back.svg">
 
             <!--Stack for played cards-->
@@ -23,3 +23,7 @@
             <img class="d-none" id="buttonTextId" src="./../../assets/img/start/end-button.png" alt="">
         </div>
     </div>
+
+    <button mat-fab color="disabled" (click)="openDialog('750ms' , '500ms')" class="button-add">
+        <mat-icon>add</mat-icon>
+    </button>

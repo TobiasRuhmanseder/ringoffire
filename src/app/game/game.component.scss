@@ -116,6 +116,13 @@ $cardSizeRatio: 1.422;
     height: 100%;
 }
 
+.button-add {
+    position: absolute;
+    background-color: rgb(209, 23, 23);
+    right: 100px;
+    bottom: 100px;
+}
+
 @keyframes textPlayAnimation {
     from {
         transform: translateY(15px);

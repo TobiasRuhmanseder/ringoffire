@@ -1,12 +1,55 @@
-body{
+body {
     background-color: black;
     margin: 0;
     overflow: hidden;
     padding-bottom: 50px;
 }
 
-.d-none{
+.d-none {
     display: none;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+    background-color: #FBD008 !important;
+    overflow-y: hidden;
+    color: black;
+}
+
+.cdk-global-scrollblock {
+    overflow-y: hidden !important;
+}
+
+.mdc-dialog__title {
+    color: black !important;
+}
+
+.mdc-dialog__content {
+    color: black !important;
+}
+
+.mat-mdc-button:not(:disabled) {
+    color: black !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: transparent !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-floating-label,
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-floating-label--float-above {
+    color: grey !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
+    color: black !important;
+}
