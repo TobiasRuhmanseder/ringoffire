@@ -78,19 +78,21 @@ export class GameComponent implements OnInit {
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    const dialogRef = this.dialog.open(DialogAddPlayerComponent, {
-      width: '250px',
-      enterAnimationDuration,
-      exitAnimationDuration,
-    });
-    // this.dialog.open(DialogAddPlayerComponent, {
-    //   width: '250px',
-    //   enterAnimationDuration,
-    //   exitAnimationDuration,
-    // });
-    dialogRef.afterClosed().subscribe((result: any) => {
-      console.log('The dialog was closed', result);
-    });
+    if (this.game.players.length > 7) { alert("Maximal 8 Spieler!"); }
+    else {
+      const dialogRef = this.dialog.open(DialogAddPlayerComponent, {
+        width: '250px',
+        enterAnimationDuration,
+        exitAnimationDuration,
+      });
+      dialogRef.afterClosed().subscribe((name: string) => {
+        if (name == undefined || name == '') { console.log('nothing') }
+        else {
+          console.log(name);
+          this.game.players.push(name);
+        }
+      });
+    }
   }
 }
 

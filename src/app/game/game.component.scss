@@ -112,8 +112,15 @@ $cardSizeRatio: 1.422;
 
 .player-position {
     position: absolute;
-    right: 60px;
-    height: 100%;
+    max-width: 150px;
+    width: 150px;
+    right: 5px;
+    height: 80%;
+    display: flex;
+    flex-direction: center;
+    justify-content: center;
+
+
 }
 
 .button-add {

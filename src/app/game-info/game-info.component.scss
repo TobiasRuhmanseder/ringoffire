@@ -1,0 +1,14 @@
+.game-info {
+    position: absolute;
+    bottom: 300px;
+    left: 50%;
+    transform: translateX(-43%);
+
+    span {
+        color: rgb(209, 23, 23);
+        font-family: 'Teko', sans-serif;
+        font-family: 'Roboto', sans-serif;
+        font-size: 30px;
+        font-weight: 700;
+    }
+}
