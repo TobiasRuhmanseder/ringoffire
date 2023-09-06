@@ -51,6 +51,12 @@
     width: 80px;
 }
 
+.button-hover {
+    position: absolute;
+    height: 200px;
+    width: 200px;
+}
+
 .title {
     position: absolute;
     width: 100%;
@@ -130,14 +136,13 @@
 }
 
 @keyframes textPlayAnimationReverse {
-    from {
+    0% {
         transform: translateY(0px);
         opacity: 1;
     }
 
-    to {
+    100% {
         transform: translateY(15px);
         opacity: 0;
-        display: none;
     }
 }

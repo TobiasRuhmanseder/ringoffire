@@ -12,7 +12,6 @@ import { DialogRef } from '@angular/cdk/dialog';
 })
 export class GameComponent implements OnInit {
   isHover = false;
-  isHoverOut = false;
   pickCardAnimation = false;
   currentCard: string = '';
   game!: Game;
@@ -21,12 +20,6 @@ export class GameComponent implements OnInit {
 
   ngOnInit() {
     this.newGame();
-    document.getElementById('buttonId')?.addEventListener('mouseover', () => {
-      this.buttonTextIn();
-    })
-    document.getElementById('buttonId')?.addEventListener('mouseleave', () => {
-      this.buttonTextOut();
-    })
   }
 
   newGame() {
@@ -36,26 +29,11 @@ export class GameComponent implements OnInit {
   }
 
   buttonTextIn() {
-    if (!this.isHover) {
-      document.getElementById('buttonTextId')?.classList.remove('buttonTextOut');
-      document.getElementById('buttonTextId')?.classList.add('buttonTextIn');
-      document.getElementById('buttonTextId')?.classList.remove('d-none');
-      this.isHover = true;
-    }
+    this.isHover = true;
   }
 
   buttonTextOut() {
-    if (this.isHover && !this.isHoverOut) {
-      this.isHoverOut = true;
-      document.getElementById('buttonTextId')?.classList.remove('buttonTextIn');
-      document.getElementById('buttonTextId')?.classList.add('buttonTextOut');
-      setTimeout(() => {
-        document.getElementById('buttonTextId')?.classList.add('d-none');
-        this.isHover = false;
-        this.isHoverOut = false;
-      }, 300)
-    }
-
+    this.isHover = false;
   }
 
   endGame() {

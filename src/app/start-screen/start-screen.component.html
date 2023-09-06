@@ -1,8 +1,9 @@
 <div class="start-screen">
-    <div (click)="newGame()" id="buttonId" class="button">
+    <div (click)="newGame()" id="buttonId" class="button" (mouseenter)="buttonTextIn()" (mouseleave)="buttonTextOut()">
         <img class="buttonImg" src="./../../assets/img/start/fire_smal.gif" alt="">
         <div id="buttonIdText" class="button-text">
-            <img class="d-none" id="buttonTextId" src="./../../assets/img/start/play-button.png" alt="">
+            <img class="" [class.buttonTextIn]="isHover"  [class.d-none]="!isHover"
+                id="buttonTextId" src="./../../assets/img/start/play-button.png" alt="">
         </div>
     </div>
     <div class="title">

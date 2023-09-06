@@ -17,10 +17,11 @@
         </div>
     </div>
 
-    <div (click)="endGame()" id="buttonId" class="end-button">
+    <div (click)="endGame()" (mouseenter)="buttonTextIn()" (mouseleave)="buttonTextOut()" class="end-button">
         <img class="buttonImg" src="./../../assets/img/start/fire_smal.gif" alt="">
         <div id="buttonIdText" class="button-text">
-            <img class="d-none" id="buttonTextId" src="./../../assets/img/start/end-button.png" alt="">
+            <img [class.buttonTextIn]="isHover" [class.d-none]="!isHover" src="./../../assets/img/start/end-button.png"
+                alt="">
         </div>
     </div>
 
