@@ -1,8 +1,9 @@
 .game-info {
     position: absolute;
-    bottom: 300px;
+    bottom: 150px;
     left: 50%;
     transform: translateX(-43%);
+    animation: descriptionAnimation 1.5s ease-in-out;
 
     span {
         color: rgb(209, 23, 23);
@@ -10,4 +11,22 @@
         font-size: 30px;
         font-weight: 500;
     }
+}
+
+@keyframes descriptionAnimation {
+
+    0% {
+        opacity: 0;
+        bottom: 50px;
+    }
+
+    70% {
+        
+    }
+
+    100% {
+        opacity: 1;
+        bottom: 150px;
+    }
+
 }

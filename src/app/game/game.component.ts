@@ -13,8 +13,11 @@ import { DialogRef } from '@angular/cdk/dialog';
 export class GameComponent implements OnInit {
   isHover = false;
   pickCardAnimation = false;
+  end: boolean = false;
   currentCard: string = '';
   game!: Game;
+  takeCardSound = new Audio('assets/audio/take-card.mp3');
+
 
   constructor(private router: Router, public dialog: MatDialog) { }
 
@@ -37,22 +40,30 @@ export class GameComponent implements OnInit {
   }
 
   endGame() {
-    document.getElementById('buttonId')?.classList.remove('end-button');
-    document.getElementById('buttonId')?.classList.add('end-button-reverse');
+    this.end = true;
     setTimeout(() => { this.router.navigateByUrl('/'); }, 3000);
 
   }
 
   takeCard() {
     if (!this.pickCardAnimation) {
+      this.takeCardSound.play();
       this.currentCard = this.game.stack.pop()!;
       this.pickCardAnimation = true;
 
       setTimeout(() => {
-        this.pickCardAnimation = false
         this.game.playedCard.push(this.currentCard);
       }, 1000)
+      setTimeout(() => { this.showNextPlayer() }, 3000);
     }
+  }
+
+  showNextPlayer() {
+    if (this.game.players.length >= 1) {
+      this.game.currentPlayer++;
+      this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+    }
+    this.pickCardAnimation = false
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -66,7 +77,6 @@ export class GameComponent implements OnInit {
       dialogRef.afterClosed().subscribe((name: string) => {
         if (name == undefined || name == '') { console.log('nothing') }
         else {
-          console.log(name);
           this.game.players.push(name);
         }
       });
