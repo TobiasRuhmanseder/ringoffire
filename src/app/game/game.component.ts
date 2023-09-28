@@ -28,7 +28,6 @@ export class GameComponent implements OnInit {
   newGame() {
     this.game = new Game();
     console.log(this.game);
-
   }
 
   buttonTextIn() {
@@ -50,7 +49,6 @@ export class GameComponent implements OnInit {
       this.takeCardSound.play();
       this.currentCard = this.game.stack.pop()!;
       this.pickCardAnimation = true;
-
       setTimeout(() => {
         this.game.playedCard.push(this.currentCard);
       }, 1000)
@@ -63,7 +61,7 @@ export class GameComponent implements OnInit {
       this.game.currentPlayer++;
       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
     }
-    this.pickCardAnimation = false
+    this.pickCardAnimation = false;
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
