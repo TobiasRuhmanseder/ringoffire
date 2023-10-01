@@ -62,8 +62,8 @@ export class GameComponent implements OnInit {
 
   showNextPlayer() {
     if (this.game.players.length >= 1) {
-      this.game.currentPlayer++;
-      this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+      this.firebaseService.game.players++;
+      this.firebaseService.game.players = this.firebaseService.game.players % this.game.players.length;
     }
     this.pickCardAnimation = false;
   }
