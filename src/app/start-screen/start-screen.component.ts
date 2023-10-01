@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FirebaseService } from '../firebase-services/firebase.service';
+import { Game } from 'src/models/game';
 
 @Component({
   selector: 'app-start-screen',
@@ -9,7 +11,7 @@ import { Router } from '@angular/router';
 export class StartScreenComponent implements OnInit {
   isHover = false;
 
-  constructor(private router: Router) { }
+  constructor(private firebaseService: FirebaseService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -22,8 +24,15 @@ export class StartScreenComponent implements OnInit {
     this.isHover = false;
   }
 
-  newGame() {
-    this.router.navigateByUrl('/game');
+  async newGame() {
+    let game = new Game;
+    console.log(game);
+
+    await this.firebaseService.addNewGame(game);
+    let id = this.firebaseService.currentId;
+    console.log(id);
+
+    this.router.navigateByUrl('/game/' + id);
   }
 
 }

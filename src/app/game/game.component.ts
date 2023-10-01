@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Inject, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { DialogRef } from '@angular/cdk/dialog';
+import { FirebaseService } from '../firebase-services/firebase.service';
 
 @Component({
   selector: 'app-game',
@@ -17,17 +18,20 @@ export class GameComponent implements OnInit {
   currentCard: string = '';
   game!: Game;
   takeCardSound = new Audio('assets/audio/take-card.mp3');
+  unsubGame: any;
 
 
-  constructor(private router: Router, public dialog: MatDialog) { }
+  constructor(private route: ActivatedRoute, private router: Router, public dialog: MatDialog, private firebaseService: FirebaseService) { }
 
   ngOnInit() {
     this.newGame();
+    this.firebaseService.currentId = this.route.snapshot.params;
+    this.firebaseService.startFirebase();
+
   }
 
   newGame() {
-    this.game = new Game();
-    console.log(this.game);
+    this.game = new Game;
   }
 
   buttonTextIn() {
