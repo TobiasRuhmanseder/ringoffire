@@ -1,19 +1,24 @@
 import { Injectable, OnDestroy, inject } from '@angular/core';
 import { Firestore, addDoc, collection, doc, onSnapshot, where, query } from '@angular/fire/firestore';
 import { Game } from 'src/models/game';
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService implements OnDestroy {
 
   firestore: Firestore = inject(Firestore);
-
+  gameTrigger = new Subject<any>();
   game: Game[] = [];
   currentId: any = "";
   unsubGame: any;
 
 
   constructor() {
+  }
+
+  serviceMethod(game: any): void {
+    this.gameTrigger.next(game);
   }
 
   ngOnDestroy() {
@@ -27,13 +32,10 @@ export class FirebaseService implements OnDestroy {
   subGameList() {
     return onSnapshot(this.getSingleDocRef(), (element) => {
       this.game = [];
-      this.game.push(this.setGameObject(element.data(), element.id))
+      this.game.push(this.setGameObject(element.data(), element.id));
       console.log(this.game);
+      this.serviceMethod(this.game);
     });
-  }
-
-  getGameRef() {
-    return collection(this.firestore, 'games');
   }
 
   async addNewGame(item: Game) {
@@ -63,6 +65,10 @@ export class FirebaseService implements OnDestroy {
       playedCard: game.playedCard || "",
       currentPlayer: game.currentPlayer || 0,
     }
+  }
+
+  getGameRef() {
+    return collection(this.firestore, 'games');
   }
 
   getSingleDocRef() {

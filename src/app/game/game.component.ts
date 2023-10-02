@@ -18,20 +18,40 @@ export class GameComponent implements OnInit {
   currentCard: string = '';
   game!: Game;
   takeCardSound = new Audio('assets/audio/take-card.mp3');
-  unsubGame: any;
+  unsubParams: any;
+  currentId: any;
 
 
   constructor(private route: ActivatedRoute, private router: Router, public dialog: MatDialog, private firebaseService: FirebaseService) { }
 
   ngOnInit() {
     this.newGame();
-    this.firebaseService.currentId = this.route.snapshot.params;
+    this.getParams();
     this.firebaseService.startFirebase();
-
+    this.firebaseService.gameTrigger.subscribe(game => {
+      console.log(game);
+      console.log(game.stack);
+      console.log(game[0].stack);
+      this.game.stack = game.stack;
+      this.game.players = game.players;
+      this.game.playedCard = game.playedCard;
+      this.game.currentPlayer = game.currentPlayer;
+      console.log(this.game);
+    })
+  }
+  ngOnDestroy() {
+    this.unsubParams.unsubscribe();
   }
 
   newGame() {
     this.game = new Game;
+  }
+
+  getParams() {
+    this.unsubParams = this.route.params.subscribe(params => {
+      this.currentId = params['id'];
+      this.firebaseService.currentId = this.currentId;
+    })
   }
 
   buttonTextIn() {
@@ -62,8 +82,8 @@ export class GameComponent implements OnInit {
 
   showNextPlayer() {
     if (this.game.players.length >= 1) {
-      this.firebaseService.game.players++;
-      this.firebaseService.game.players = this.firebaseService.game.players % this.game.players.length;
+      this.game.currentPlayer++;
+      this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
     }
     this.pickCardAnimation = false;
   }
