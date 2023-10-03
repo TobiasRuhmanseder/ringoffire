@@ -13,9 +13,7 @@ import { FirebaseService } from '../firebase-services/firebase.service';
 })
 export class GameComponent implements OnInit {
   isHover = false;
-  pickCardAnimation = false;
   end: boolean = false;
-  currentCard: string = '';
   game!: Game;
   takeCardSound = new Audio('assets/audio/take-card.mp3');
   unsubParams: any;
@@ -29,14 +27,12 @@ export class GameComponent implements OnInit {
     this.getParams();
     this.firebaseService.startFirebase();
     this.firebaseService.gameTrigger.subscribe(game => {
-      console.log(game);
-      console.log(game.stack);
-      console.log(game[0].stack);
       this.game.stack = game.stack;
       this.game.players = game.players;
       this.game.playedCard = game.playedCard;
       this.game.currentPlayer = game.currentPlayer;
-      console.log(this.game);
+      this.game.pickCardAnimation = game.pickCardAnimation;
+      this.game.currentCard = game.currentCard;
     })
   }
   ngOnDestroy() {
@@ -65,16 +61,17 @@ export class GameComponent implements OnInit {
   endGame() {
     this.end = true;
     setTimeout(() => { this.router.navigateByUrl('/'); }, 3000);
-
   }
 
   takeCard() {
-    if (!this.pickCardAnimation) {
+    if (!this.game.pickCardAnimation) {
       this.takeCardSound.play();
-      this.currentCard = this.game.stack.pop()!;
-      this.pickCardAnimation = true;
+      this.game.currentCard = this.game.stack.pop()!;
+      this.game.pickCardAnimation = true;
+      this.firebaseService.updateGame(this.game);
       setTimeout(() => {
-        this.game.playedCard.push(this.currentCard);
+        this.game.playedCard.push(this.game.currentCard);
+        this.firebaseService.updateGame(this.game);
       }, 1000)
       setTimeout(() => { this.showNextPlayer() }, 3000);
     }
@@ -84,8 +81,11 @@ export class GameComponent implements OnInit {
     if (this.game.players.length >= 1) {
       this.game.currentPlayer++;
       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
+      this.firebaseService.updateGame(this.game);
     }
-    this.pickCardAnimation = false;
+    this.game.pickCardAnimation = false;
+    this.firebaseService.updateGame(this.game);
+
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -100,10 +100,12 @@ export class GameComponent implements OnInit {
         if (name == undefined || name == '') { console.log('nothing') }
         else {
           this.game.players.push(name);
+          this.firebaseService.updateGame(this.game);
         }
       });
     }
   }
+
 }
 
 

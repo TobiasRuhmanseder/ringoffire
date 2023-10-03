@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy, inject } from '@angular/core';
-import { Firestore, addDoc, collection, doc, onSnapshot, where, query } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, onSnapshot, where, query, updateDoc } from '@angular/fire/firestore';
 import { Game } from 'src/models/game';
 import { Subject } from 'rxjs';
 @Injectable({
@@ -9,7 +9,7 @@ export class FirebaseService implements OnDestroy {
 
   firestore: Firestore = inject(Firestore);
   gameTrigger = new Subject<any>();
-  game: Game[] = [];
+  game: any = new Game();
   currentId: any = "";
   unsubGame: any;
 
@@ -31,11 +31,18 @@ export class FirebaseService implements OnDestroy {
 
   subGameList() {
     return onSnapshot(this.getSingleDocRef(), (element) => {
-      this.game = [];
-      this.game.push(this.setGameObject(element.data(), element.id));
-      console.log(this.game);
+      this.game = this.setGameObject(element.data(), element.id);
       this.serviceMethod(this.game);
     });
+  }
+
+  async updateGame(game: Game) {
+    if (this.currentId) {
+      let docRef = this.getSingleDocRef();
+      await updateDoc(docRef, this.getCleanJson(game)).catch(
+        (err) => { console.log(err); }
+      ).then();
+    }
   }
 
   async addNewGame(item: Game) {
@@ -55,6 +62,8 @@ export class FirebaseService implements OnDestroy {
       stack: obj.stack || "",
       playedCard: obj.playedCard || "",
       currentPlayer: obj.currentPlayer || 0,
+      pickCardAnimation: obj.pickCardAnimation || false,
+      currentCard: obj.currentCard || ""
     }
   }
 
@@ -64,6 +73,8 @@ export class FirebaseService implements OnDestroy {
       stack: game.stack || "",
       playedCard: game.playedCard || "",
       currentPlayer: game.currentPlayer || 0,
+      pickCardAnimation: game.pickCardAnimation || false,
+      currentCard: game.currentCard || ""
     }
   }
 

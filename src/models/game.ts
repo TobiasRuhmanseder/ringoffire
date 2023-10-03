@@ -4,6 +4,8 @@ export class Game {
     public stack: string[] = [];
     public playedCard: string[] = [];
     public currentPlayer: number = 0;
+    public pickCardAnimation = false;
+    public currentCard: string = '';
 
 
     constructor() {
@@ -17,7 +19,7 @@ export class Game {
     }
 }
 
-function shuffle(array: any) {
+function shuffle(array: string[]) {
     let currentIndex = array.length, randomIndex;
     console.log(currentIndex)
 

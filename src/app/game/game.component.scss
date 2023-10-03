@@ -1,4 +1,5 @@
 $cardSize: 140px;
+$cardSizeMobile: 80px;
 $cardSizeRatio: 1.422;
 
 .game-screen {
@@ -47,7 +48,7 @@ $cardSizeRatio: 1.422;
 }
 
 .end-button {
-    width: 200px;
+    width: 80%;
     position: relative;
     left: calc(50% - 100px);
     display: flex;
@@ -81,7 +82,7 @@ $cardSizeRatio: 1.422;
 }
 
 .buttonImg {
-    width: 100%;
+    width: 80%;
     transition: all 0.5s ease-in-out;
 }
 
@@ -119,15 +120,20 @@ $cardSizeRatio: 1.422;
     display: flex;
     flex-direction: center;
     justify-content: center;
+}
 
-
+.player-position-mobile {
+    position: absolute;
+    display: none;
+    flex-direction: center;
+    justify-content: center;
 }
 
 .button-add {
     position: absolute;
     background-color: rgb(209, 23, 23);
-    right: 100px;
-    bottom: 100px;
+    right: 40px;
+    bottom: 40px;
 }
 
 @keyframes textPlayAnimation {
@@ -213,4 +219,88 @@ $cardSizeRatio: 1.422;
     100% {
         transform: scale(1.1) translateX(200px) translateY(-180px) rotate(-10deg);
     }
+}
+
+@media (max-width: 1023px) {
+
+    .buttonImg {
+        width: 10vw;
+        opacity: 0.4;
+        transition: all 0.5s ease-in-out;
+    }
+}
+
+@media (max-width: 1023px) and (max-height: 960px) {
+    //mobile vertical
+
+    .end-button {
+        display: none;
+    }
+
+    .end-button-reverse {
+        display: none;
+    }
+
+    .button-add {
+        height: 7vw;
+        width: 7vw;
+        right: 40px;
+        bottom: 40px;
+    }
+
+    .card-stack-container {
+        position: relative;
+        left: calc(50% - $cardSizeMobile/2) !important;
+        top: calc(50% - $cardSizeMobile*$cardSizeRatio/2);
+    }
+
+    .card-stack {
+
+        img {
+            width: $cardSizeMobile;
+        }
+    }
+
+    .pick-card {
+        transform: scale(1.1) translateX(10px) translateY(-180px) rotate(-10deg);
+        animation: pickCardAnimationMobile 1s ease-in-out;
+
+    }
+
+    .played-card {
+        left: 20px;
+        transform: scale(1.1) translateX(10px) translateY(-180px) rotate(-10deg);
+
+    }
+
+    .player-position-mobile {
+        display: flex;
+        max-width: 50px;
+        width: 50px;
+        right: 5px;
+
+    }
+
+    .player-position {
+        display: none;
+    }
+
+    @keyframes pickCardAnimationMobile {
+        0% {
+            transform: scale(1);
+        }
+
+        40% {
+            transform: scale(1.7);
+        }
+
+        60% {
+            transform: scale(1.7);
+        }
+
+        100% {
+            transform: scale(1.1) translateX(10px) translateY(-180px) rotate(-10deg);
+        }
+    }
+
 }
