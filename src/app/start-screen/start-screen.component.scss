@@ -75,13 +75,12 @@
 
 .cards {
     position: absolute;
-    width: 100%;
     left: calc(50% + 9%);
     bottom: calc(100vh - ((100vw * 0.3 / 1.5285)) - 70px);
     opacity: 0.9;
 
     img {
-        width: 13%;
+        width: 13vw;
         rotate: 30deg;
         animation: cardInAnimation 6s ease-in-out;
     }
@@ -149,7 +148,6 @@
 
 @media (max-width: 1023px) {
     .title {
-
         img {
             width: 50%;
             z-index: 1;
@@ -161,9 +159,8 @@
         left: calc(50% + 15%);
         bottom: calc(100vh - ((100vw * 0.5 / 1.5285)) - 70px);
 
-
         img {
-            width: 22%;
+            width: 20vw;
         }
     }
 

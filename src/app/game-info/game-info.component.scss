@@ -3,12 +3,12 @@
     bottom: 150px;
     left: 50%;
     transform: translateX(-43%);
-    animation: descriptionAnimation 1.5s ease-in-out;
+    animation: descriptionAnimation 0.5s ease-in-out;
 
     span {
         color: rgb(209, 23, 23);
         font-family: 'Teko', sans-serif;
-        font-size: 30px;
+        font-size: 26px;
         font-weight: 500;
     }
 }
@@ -20,13 +20,42 @@
         bottom: 50px;
     }
 
-    70% {
-        
-    }
+    70% {}
 
     100% {
         opacity: 1;
         bottom: 150px;
+    }
+
+}
+
+@media (max-width: 1023px) and (max-height: 960px) {
+
+    .game-info {
+        bottom: 50px;
+        animation: descriptionAnimationMobile 0.5s ease-in-out;
+
+        span {
+            font-size: 18px;
+            font-weight: 500;
+
+        }
+    }
+
+    @keyframes descriptionAnimationMobile {
+
+        0% {
+            opacity: 0;
+            bottom: 5px;
+        }
+
+        70% {}
+
+        100% {
+            opacity: 1;
+            bottom: 50px;
+        }
+
     }
 
 }

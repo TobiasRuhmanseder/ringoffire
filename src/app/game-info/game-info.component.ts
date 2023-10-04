@@ -7,8 +7,8 @@ import { Component, Input, OnChanges } from '@angular/core';
 })
 export class GameInfoComponent implements OnChanges {
   textSound = new Audio('assets/audio/slide-in.mp3');
-  title = '';
-  description = '';
+  public title = '';
+  public description = '';
   nextInfo = false;
   start = false;
   @Input() card!: string;
@@ -44,6 +44,11 @@ export class GameInfoComponent implements OnChanges {
         this.textSound.play();
       }, 1000);
     }
+  }
+
+  addMessage(text: string){
+    console.log(text);
+    
   }
 
 }

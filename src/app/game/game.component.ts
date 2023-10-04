@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
@@ -18,7 +18,9 @@ export class GameComponent implements OnInit {
   takeCardSound = new Audio('assets/audio/take-card.mp3');
   unsubParams: any;
   currentId: any;
-
+  greyAddButton: boolean = false;
+  gameInfo: any;
+  messageOnScreen: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router, public dialog: MatDialog, private firebaseService: FirebaseService) { }
 
@@ -64,7 +66,8 @@ export class GameComponent implements OnInit {
   }
 
   takeCard() {
-    if (!this.game.pickCardAnimation) {
+    if (!this.game.pickCardAnimation && this.game.players.length > 1) {
+
       this.takeCardSound.play();
       this.game.currentCard = this.game.stack.pop()!;
       this.game.pickCardAnimation = true;
@@ -74,7 +77,7 @@ export class GameComponent implements OnInit {
         this.firebaseService.updateGame(this.game);
       }, 1000)
       setTimeout(() => { this.showNextPlayer() }, 3000);
-    }
+    } else if (this.game.players.length <= 1 && this.messageOnScreen == false) this.showMessageOnScreen();
   }
 
   showNextPlayer() {
@@ -89,7 +92,9 @@ export class GameComponent implements OnInit {
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    if (this.game.players.length > 7) { alert("Maximal 8 Spieler!"); }
+    if (this.game.players.length > 7) {
+      this.greyAddButton = true;
+    }
     else {
       const dialogRef = this.dialog.open(DialogAddPlayerComponent, {
         width: '250px',
@@ -97,15 +102,20 @@ export class GameComponent implements OnInit {
         exitAnimationDuration,
       });
       dialogRef.afterClosed().subscribe((name: string) => {
-        if (name == undefined || name == '') { console.log('nothing') }
+        if (name == undefined || name == '') { }
         else {
           this.game.players.push(name);
           this.firebaseService.updateGame(this.game);
+          if (this.game.players.length > 7) { this.greyAddButton = true; }
         }
       });
     }
   }
 
+  showMessageOnScreen() {
+    this.messageOnScreen = true;
+    setTimeout(() => { this.messageOnScreen = false }, 2000);
+  }
 }
 
 

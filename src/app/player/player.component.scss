@@ -8,7 +8,7 @@
     opacity: 0.5;
 
     span {
-        font-size: 18px;
+        font-size: 14px;
         font-weight: 500;
         max-width: 150px;
         color: #FBD008;
@@ -18,9 +18,9 @@
     }
 
     img {
-        margin-bottom: 8px;
-        width: 30px;
-        height: 30px;
+        margin-bottom: 2px;
+        width: 18px;
+        height: 18px;
         filter: invert(0);
         object-fit: contain;
         padding: 10px;
@@ -32,6 +32,34 @@
 .player-active {
     filter: invert(0.0) !important;
     opacity: 1 !important;
+}
+
+@media (max-width: 1023px) {
+    //mobile vertical
+
+    .player {
+
+        span {
+            font-size: 10px;
+            font-weight: 500;
+            max-width: 150px;
+            color: #FBD008;
+            overflow: hidden;
+            text-overflow: ellipsis !important;
+            white-space: nowrap !important;
+        }
+
+        img {
+            margin-bottom: 5px;
+            width: 8px;
+            height: 8px;
+            filter: invert(0);
+            object-fit: contain;
+            padding: 10px;
+            border: 6px solid #FBD008;
+            border-radius: 70px;
+        }
+    }
 }
 
 @media (max-width: 1023px) and (max-height: 960px) {

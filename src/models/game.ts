@@ -21,7 +21,6 @@ export class Game {
 
 function shuffle(array: string[]) {
     let currentIndex = array.length, randomIndex;
-    console.log(currentIndex)
 
     // While there remain elements to shuffle.
     while (currentIndex > 0) {
